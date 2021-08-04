@@ -23,18 +23,26 @@ class Moto(Vehiculo):
         print("Vas a hacer el caballito?? ", self.__hcaballito)
 
 class VehiculoE:
-    __cargando = False
-
     def __init__(self):
         self.__autonomia = 100
     
     def cargar(self):
         self.__cargando = True
+    
+    def estado(self):
+        print("Carga: " , self.__cargando, " - Autonomia: ", self.__autonomia)
 
 #Herencia Múltiple
 #Se le da preferencia a la primera clase que está en el paréntesis
-class BicicletaE(Vehiculo, VehiculoE):
-    pass
+class BicicletaE(VehiculoE, Vehiculo):
+    def __init__(self, marca, modelo) -> None:
+        super().__init__()
+        self.__marca = marca
+        self.__modelo = modelo
+    
+    def estado(self):
+        super().estado()
+        print("Marca: ", self.__marca)
 
 mimoto = Moto("Honda", "CBR")
 mimoto.hcaballito()
@@ -44,3 +52,5 @@ mimoto.estado()
 bicie = BicicletaE("Tern", "D16")
 bicie.cargar()
 bicie.estado()
+
+print(isinstance(bicie, VehiculoE))
